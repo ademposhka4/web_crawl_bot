@@ -152,6 +152,13 @@ def scrape_jobs():
             )
             posted_text = time_el.get_text(strip=True) if time_el else None
 
+            reposted_el = card.select_one("span.tvm__text.tvm__text--positive")
+            reposted_text = (
+                reposted_el.get_text(" ", strip=True) if reposted_el else ""
+            )
+            if reposted_text and "reposted" in reposted_text.lower():
+                posted_text = f"Reposted {posted_text or ''}".strip()
+
             # -----------------------
             # Job link
             # -----------------------
